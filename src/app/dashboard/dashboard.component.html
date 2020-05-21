@@ -1,0 +1,67 @@
+<div class="container-fluid" style="margin-top:30px">
+  <div class = "row">
+    <div class = "col-sm-12">
+      <h1 class = "text-center">Overview</h1>
+      <div class ="well">Coming Soon</div>
+
+ 
+      <br><br><br><br>
+
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-sm-5">
+        <h2>Meilleur Spot</h2>
+        <p>Liste des 5 prochains jours</p>
+  
+        <div class="container">
+          
+          <table class="table table-bordered ">
+            <thead>
+              <tr>
+                <th>Spot</th>
+                <th>Houle</th>
+                <th>Orientation</th>
+                <th>Type</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let spot of listeSpots" (click)="onSelectSpot(spot)" style="cursor: pointer;"
+             highlightTable = "green">
+              <tr>
+                <td>{{spot.nom}}</td>
+                <td>{{spot.houle}} m</td>
+                <td>{{spot.orientation}}</td>
+                <td>{{spot.type}}</td>
+                <td>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+  
+  
+      </div>
+      <div class="col-sm-7" [hidden]="isOneSpotSelected">
+        <h2>Specific Spot</h2>
+        <h5>Les Dunes - Brétignolles</h5>
+        <div class="container">
+          <iframe src="https://magicseaweed.com/Les-Dunes-Surf-Report/1570/Embed/" 
+          width="800" height="300" frameborder="0"></iframe>
+  
+        </div>
+     
+        <br><br><br><br><br><br>
+      </div>
+
+      <div class="col-sm-7" [hidden]="!isOneSpotSelected">
+        
+      </div>
+
+    </div>
+  </div>
+  
+  

@@ -1,0 +1,12 @@
+.cursor {
+    cursor: pointer;}
+
+.active2{ 
+    color: red;
+}
+
+
+.nav-item {
+    font-size: 1.4em;
+    padding-right: 7px;
+}
