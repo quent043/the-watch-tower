@@ -1,5 +1,7 @@
 import { Directive, Input, ElementRef, HostListener } from "@angular/core";
 
+//PAS UTILISEE - ON UTILISE ROUTERLINKACTIVE A LA PLACE
+
 @Directive({
     selector: '[highlightHeaderSection]'
 })
