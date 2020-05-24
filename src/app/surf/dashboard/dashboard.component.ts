@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailSpot } from '../detail-spot';
-import { SURF_SPOTS } from '../mock-surf-spots';
+import { SurfService } from '../surf.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,11 +14,14 @@ export class DashboardComponent implements OnInit {
   isOneSpotSelected: boolean;
 
   constructor(
-    private router: Router) { }
+    private router: Router,
+    private surfService: SurfService      //On peut maintenant faire 'this.SurfService' dans le reste du module,
+    ) { }                                 //et son instance est unique
 
   ngOnInit() {
-    this.listeSpots = SURF_SPOTS;
+    this.listeSpots = this.surfService.getSurfSpots();
     this.isOneSpotSelected = false;
+
   }
 
   onSelectSpot(detailSpot: DetailSpot) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailSpot } from '../detail-spot';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SURF_SPOTS } from '../mock-surf-spots';
+import { SurfService } from '../surf.service';
 
 @Component({
   selector: 'app-detail-spot',
@@ -10,26 +10,21 @@ import { SURF_SPOTS } from '../mock-surf-spots';
 })
 export class DetailSpotComponent implements OnInit {
 
-  listeSpots: DetailSpot[] = null;
+  //listeSpots: DetailSpot[] = null;
   spot: DetailSpot = null;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private surfService: SurfService
     ) { }
 
   ngOnInit() {
 
-    this.listeSpots = SURF_SPOTS;
-
     let id = +this.route.snapshot.params['id'];
-    for (let i = 0; i < this.listeSpots.length; i++) {
-      if( this.listeSpots[i].id == id) {
-        this.spot = this.listeSpots[i];
-      }
-    }
+      this.spot = this.surfService.getSurfSpot(id);
+
+    let origin = this.surfService.geoLocate();
   }
-
-
 
 }

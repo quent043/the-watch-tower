@@ -5,6 +5,7 @@ import { TableHighlightDirective } from './dashboard/selected-table.directive';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailSpotComponent } from './detail-spot/detail-spot.component';
 import { SurfRoutingModule } from './surf-routing/surf-routing.module';
+import { SurfService } from './surf.service';
 
 
 
@@ -18,6 +19,9 @@ import { SurfRoutingModule } from './surf-routing/surf-routing.module';
   imports: [
     CommonModule,
     SurfRoutingModule
+  ],
+  providers: [
+    SurfService
   ]
 })
 export class SurfModule { }

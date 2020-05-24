@@ -1,41 +1,82 @@
-<!-- <div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2740.993107625766!2d-1.856955784517024!3d46.60713917913099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48045bd5642dc2f5%3A0xb215dc74042f36a3!2sPostes%20de%20Secours%20Dunes%201!5e0!3m2!1sen!2sfr!4v1588320354140!5m2!1sen!2sfr" 
-    width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" 
-    aria-hidden="false" tabindex="0"></iframe>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+      
+        <h2>{{spot.nom}}</h2>
+        <p>{{spot.type}}</p>            
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Conditions</th>
+              <th>Conditions optimales</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Houle</td>
+              <td>AJAX</td>
+              <td>{{spot.houle}} m</td>
+            </tr>
+            <tr>
+              <td>Orientation vagues</td>
+              <td>AJAX</td>
+              <td>{{spot.orientationHoule}}</td>
+            </tr>
+            <tr>
+              <td>Hauteur Saturation</td>
+              <td>AJAX</td>
+              <td>{{spot.hauteurSaturation}} m</td>
+            </tr>
+            <tr>
+              <td>Marée</td>
+              <td>AJAX</td>
+              <td>{{spot.maree}}</td>
+            </tr>
+            <tr>
+              <td>Vent</td>
+              <td>AJAX</td>
+              <td>{{spot.vent}}</td>
+            </tr>
+            <tr>
+              <td>Direction Vent</td>
+              <td>AJAX</td>
+              <td>{{spot.directionVent}}</td>
+            </tr>
+          </tbody>
+        </table>
+      
+    </div>
 
-    <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d698079.0
-    565677664!2d-2.106901207130863!3d46.885580130344636!2m3!1f0!2f0!3f0!3m2!1i10
-    24!2i768!4f13.1!4m13!3e0!4m5!1s0x4805ec0413452405%3A0x5a74e3ef6c81d68e!2s69%20
-    Quai%20de%20la%20Fosse%2C%2044000%20Nantes%2C%20France!3m2!1d47.2096533!2d-1.56
-    60401!4m5!1s0x48045bd5642dc2f5%3A0xb215dc74042f36a3!2sPostes%20de%20Secours%20Dunes%201%2C
-    %2044%20Avenue%20des%20Dunes%2C%2085470%20Bretignolles-sur-Mer!3m2!1d46.6071392!2d-1.854767
-    1!5e0!3m2!1sen!2sfr!4v1588321714791!5m2!1sen!2sfr" width="600" height="450" frameborder="0" 
-    style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    <!-- <div class="col-sm-2"></div> -->
 
-    <blockquote class="osr-embed" style="background:#FFF; border-radius:5px; max-width:490px; padding:0; margin:0; width:100%; border: 1px solid #efefef; position: relative; font-size: 16px; font-weight: bold; font-family: Helvetica, Roboto, 'Segoe UI', Calibri, sans-serif;"><p style="margin: 0; padding: 8px;"><img src="https://imgv3.surf-report.com/avatar/reporters/524172673.jpg" border="0" width="34" height="34" style="border-radius: 17px; display: inline-block; float: right;"><a href="https://www.surf-report.com/reports/la-tranche-mer-27-04-2020-14-00-427205324.html" title="Surf Report La Tranche Sur Mer" target="_blank" style="color: #000; text-decoration: none;">Report La Tranche Sur Mer du 27/04 &agrave; 14:00</a><br><span style="font-size: 14px; font-weight: normal; color: rgb(105, 120, 130);">Par Koa Surf School</span></p><a href="https://www.surf-report.com/reports/la-tranche-mer-27-04-2020-14-00-427205324.html" title="Surf Report La Tranche Sur Mer" target="_blank"><img class="osr-image" src="https://www.surf-report.com/img/pictures/reports/2020/20200427/20042718132.jpeg" border="0" width="100%" height="100%" style="display: block; border-bottom-left-radius:5px; border-bottom-right-radius:5px;"><img src="https://www.surf-report.com/img/logo-330x75.png" border="0" width="200" style="display: block; position: absolute; margin-top: -55px; margin-left: 10px;"></a></blockquote>
+    <div class="col-sm-6" id="map">
+      <h2>Itinéraire</h2>
+      <p>Depuis -  </p>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2741.027150699208!2d-1.8553543903634937!3d46.60646640503099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48045bd81935ddad%3A0xa160af1e5cfbd1aa!2sBr%C3%A9ti%20Surf%20School!5e0!3m2!1sfr!2sfr!4v1590306170466!5m2!1sfr!2sfr" 
+      width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" 
+      tabindex="0"></iframe>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <blockquote class="osr-embed" style="background:#FFF; border-radius:5px; max-width:490px; padding:15px; margin:0; width:100%; border: 1px solid #efefef; position: relative; font-size: 16px; font-weight: bold; font-family: Helvetica, Roboto, 'Segoe UI', Calibri, sans-serif;"><p style="margin: 0; padding: 15px;"><img src="https://imgv3.surf-report.com/avatar/reporters/324173741.png" border="0" width="34" height="34" style="border-radius: 17px; display: inline-block; float: right;"><a href="https://www.surf-report.com/reports/sables-olonne-23-05-2020-10-00-523202759.html" title="Surf Report Sables D'olonne" target="_blank" style="color: #000; text-decoration: none;">Report Sables D'olonne du 23/05 &agrave; 10:00</a><br><span style="font-size: 14px; font-weight: normal; color: rgb(105, 120, 130);">Par Bahia Surf Shop</span></p><a href="https://www.surf-report.com/reports/sables-olonne-23-05-2020-10-00-523202759.html" title="Surf Report Sables D'olonne" target="_blank"><img class="osr-image" src="https://www.surf-report.com/img/pictures/reports/2020/20200523/20052321267.JPG" border="0" width="100%" height="100%" style="display: block; border-bottom-left-radius:5px; border-bottom-right-radius:5px;"><img src="https://www.surf-report.com/img/logo-330x75.png" border="0" width="200" style="display: block; position: absolute; margin-top: -55px; margin-left: 10px;"></a></blockquote>
     <script type="text/javascript" src="//www.surf-report.com/static/embed.php"></script>
-  <p>Some text..</p>
-  <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-  <br>
-</div> -->
-
-<div class="container-fluid" style="margin-top:30px">
-  <div class = "row">
-    <div class="col-sm-5">
-      <div class="panel panel-default">
-        <div class="panel-heading">{{spot.nom}}</div>
-        <div class="panel-body">
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-
-
-        </div>
-      </div>
-
-
     </div>
-    </div>
-    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-sm-4">
+      
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      
+    </div>
+  </div>
+</div>
