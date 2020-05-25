@@ -7,8 +7,8 @@ import { DetailSpot } from './detail-spot';
 })
 export class SurfService {
 
-  lat;
-  long;
+  lat: Number;
+  long: Number;
   private zoom: Number;
   origin;
   destination;
@@ -28,19 +28,29 @@ export class SurfService {
     }
   }
 
-    geoLocate() {
+  geoLocate() {
 
+    // if(localStorage.getItem('lat') && localStorage.getItem('long')) {
+    //   this.origin.lat = localStorage.getItem('lat');
+    //   this.origin.long = localStorage.getItem('long');
+    //   console.log("Coordonnées récupérées de la Session -> Lat:" + this.origin.lat + " long: " + this.origin.long);
+    //   return this.origin;
+    // } else 
+    // {
       if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.lat = position.coords.latitude;
         this.long = position.coords.longitude;
         this.zoom = 16;
+        this.origin = { lat: this.lat, long: this.long};
+        localStorage.setItem('lat', this.origin.lat);
+        localStorage.setItem('long', this.origin.long);
       });
-      return this.origin = { lat: this.lat, long: this.long};
+      return this.origin;
+      }
+      else {
+        alert("Your Browser does not support geolocation.")
+      }
     }
-    else {
-      alert("Your Browser does not support geolocation.")
-      
-    }
-  }
+  // }
 }

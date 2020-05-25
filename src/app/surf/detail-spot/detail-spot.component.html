@@ -1,7 +1,9 @@
 <br>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-6">
+
+    <!-- Affichage -->
+    <div class="col-sm-6" *ngIf=!editSpot>
       
         <h2>{{spot.nom}}</h2>
         <p>{{spot.type}}</p>            
@@ -46,14 +48,59 @@
             </tr>
           </tbody>
         </table>
+        <button class="btn btn-primary" (click) = onEditClick() >Editer</button>
       
     </div>
 
-    <!-- <div class="col-sm-2"></div> -->
+    <!-- Edition -->
+    <!-- <form *ngIf="spot" (ngSubmit)="onSubmitClick()" #surSpotForm="ngForm"> -->
+      <div class="container col-sm-6" *ngIf=editSpot>
+        <h1>Edition du Spot: {{spot.nom}}</h1><br>
+      <form [spot]="spot">
+        <div class="form-group">
+          <label for="nom">Nom du Spot:</label>
+          <input  type="text" placeholder="{{spot.nom}}" appPlaceHolderEdit 
+                  class="form-control" id="nom" 
+                  [(ngModel)]="spot.nom" name="nom" 
+                  #name="ngModel">
+          <!--#name="ngModel" Permet de déclarer le champ sur lequel elle est rattachée comme un champ de tye 'form-control' -->
+        </div>
+        <div class="form-group">
+          <label for="type">Type de Spot:</label>
+          <input type="text" class="form-control" id="type">
+        </div>
+        <div class="form-group">
+          <label for="houle">Houle Saturation:</label>
+          <input type="text" class="form-control" id="hauteurSaturation">
+        </div>
+        <div class="form-group">
+          <label for="maree">Maree Optimale:</label>
+          <input type="text" class="form-control" id="maree">
+        </div>
+        <!-- A AJOUTER -->
+        <!-- <div class="form-group">
+          <label for="vent">Vent Saturation:</label>
+          <input type="text" class="form-control" id="ventSaturation">
+        </div> -->
+        <div class="form-group">
+          <label for="directionVent">Direction optimale du Vent:</label>
+          <input type="text" class="form-control" id="directionVent">
+        </div>
+        <div class="form-group">
+          <label for="region">Region:</label>
+          <input type="text" class="form-control" id="region">
+        </div>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+        <!-- (click) = onSubmitClick() on va mettre ça dans l''action' du form -->
+      </form>
+      
+    </div>
+   
+    <!-- </form> -->
 
-    <div class="col-sm-6" id="map">
+    <div class="col-sm-6" id="map" *ngIf=!editSpot>
       <h2>Itinéraire</h2>
-      <p>Depuis -  </p>
+      <p>Depuis - {{origin.lat}} : {{origin.long}} </p>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2741.027150699208!2d-1.8553543903634937!3d46.60646640503099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48045bd81935ddad%3A0xa160af1e5cfbd1aa!2sBr%C3%A9ti%20Surf%20School!5e0!3m2!1sfr!2sfr!4v1590306170466!5m2!1sfr!2sfr" 
       width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" 
       tabindex="0"></iframe>
@@ -61,9 +108,25 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf=!editSpot>
     <div class="col-sm-4">
-      <blockquote class="osr-embed" style="background:#FFF; border-radius:5px; max-width:490px; padding:15px; margin:0; width:100%; border: 1px solid #efefef; position: relative; font-size: 16px; font-weight: bold; font-family: Helvetica, Roboto, 'Segoe UI', Calibri, sans-serif;"><p style="margin: 0; padding: 15px;"><img src="https://imgv3.surf-report.com/avatar/reporters/324173741.png" border="0" width="34" height="34" style="border-radius: 17px; display: inline-block; float: right;"><a href="https://www.surf-report.com/reports/sables-olonne-23-05-2020-10-00-523202759.html" title="Surf Report Sables D'olonne" target="_blank" style="color: #000; text-decoration: none;">Report Sables D'olonne du 23/05 &agrave; 10:00</a><br><span style="font-size: 14px; font-weight: normal; color: rgb(105, 120, 130);">Par Bahia Surf Shop</span></p><a href="https://www.surf-report.com/reports/sables-olonne-23-05-2020-10-00-523202759.html" title="Surf Report Sables D'olonne" target="_blank"><img class="osr-image" src="https://www.surf-report.com/img/pictures/reports/2020/20200523/20052321267.JPG" border="0" width="100%" height="100%" style="display: block; border-bottom-left-radius:5px; border-bottom-right-radius:5px;"><img src="https://www.surf-report.com/img/logo-330x75.png" border="0" width="200" style="display: block; position: absolute; margin-top: -55px; margin-left: 10px;"></a></blockquote>
+      <blockquote class="osr-embed" style="background:#FFF; border-radius:5px; max-width:490px; 
+      padding:15px; margin:0; width:100%; border: 1px solid #efefef; position: relative; font-size: 16px;
+       font-weight: bold; font-family: Helvetica, Roboto, 'Segoe UI', Calibri, sans-serif;"><p style="margin: 0;
+        padding: 15px;"><img src="https://imgv3.surf-report.com/avatar/reporters/324173741.png" border="0"*
+         width="34" height="34" style="border-radius: 17px; display: inline-block;
+          float: right;">
+          <a href="https://www.surf-report.com/reports/sables-olonne-s1092.html" 
+          title="Surf Report Sables D'olonne" target="_blank" style="color: #000; text-decoration: none;">
+          Report Sables D'olonne du 23/05 &agrave; 10:00</a><br><span style="font-size: 14px; 
+          font-weight: normal; color: rgb(105, 120, 130);">Par Bahia Surf Shop</span></p>
+          <a href="https://www.surf-report.com/reports/sables-olonne-s1092.html" 
+          title="Surf Report Sables D'olonne" target="_blank"><img class="osr-image" 
+          src="https://www.surf-report.com/img/pictures/reports/2020/20200523/20052321267.JPG" 
+          border="0" width="100%" height="100%" style="display: block; border-bottom-left-radius:5px; 
+          border-bottom-right-radius:5px;"><img src="https://www.surf-report.com/img/logo-330x75.png" 
+          border="0" width="200" style="display: block; position: absolute; margin-top: -55px; 
+          margin-left: 10px;"></a></blockquote>
     <script type="text/javascript" src="//www.surf-report.com/static/embed.php"></script>
     </div>
   </div>

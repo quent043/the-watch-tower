@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SurfModule } from './surf/surf.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { SurfModule } from './surf/surf.module';
   ],
   imports: [ //On charge d'abord le module Surf avant le module des routes de l'App
     BrowserModule,
+    FormsModule,
     SurfModule,
     AppRoutingModule
   ],

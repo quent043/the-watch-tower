@@ -6,6 +6,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailSpotComponent } from './detail-spot/detail-spot.component';
 import { SurfRoutingModule } from './surf-routing/surf-routing.module';
 import { SurfService } from './surf.service';
+import { PlaceHolderEditDirective } from './Pipes_Directives/place-holder-edit.directive';
+import { FormsModule } from '@angular/forms';
+import { SurfFormComponent } from './surf-form/surf-form.component';
+import { TypeSpotColorPipe } from './Pipes_Directives/type-spot-color.pipe';
 
 
 
@@ -14,11 +18,15 @@ import { SurfService } from './surf.service';
     WindMapComponent,
     DashboardComponent,
     DetailSpotComponent,
-    TableHighlightDirective
+    TableHighlightDirective,
+    PlaceHolderEditDirective,
+    SurfFormComponent,
+    TypeSpotColorPipe
   ],
   imports: [
     CommonModule,
-    SurfRoutingModule
+    SurfRoutingModule,
+    FormsModule
   ],
   providers: [
     SurfService

@@ -12,6 +12,11 @@ export class DetailSpotComponent implements OnInit {
 
   //listeSpots: DetailSpot[] = null;
   spot: DetailSpot = null;
+  origin: {
+    lat: Number, 
+    long: Number
+  };
+  editSpot: Boolean = null;
 
   constructor(
     private router: Router,
@@ -24,7 +29,16 @@ export class DetailSpotComponent implements OnInit {
     let id = +this.route.snapshot.params['id'];
       this.spot = this.surfService.getSurfSpot(id);
 
-    let origin = this.surfService.geoLocate();
+    this.origin = this.surfService.geoLocate();
+    this.editSpot = true;
+  }
+
+  onEditClick() {
+    this.editSpot = true;
+  }
+
+  onSubmitClick() {
+    this.editSpot = false;
   }
 
 }
