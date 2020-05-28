@@ -10,6 +10,7 @@ import { PlaceHolderEditDirective } from './Pipes_Directives/place-holder-edit.d
 import { FormsModule } from '@angular/forms';
 import { SurfFormComponent } from './surf-form/surf-form.component';
 import { SpotSearchComponent } from './spot-search/spot-search.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 
 
@@ -21,7 +22,8 @@ import { SpotSearchComponent } from './spot-search/spot-search.component';
     TableHighlightDirective,
     PlaceHolderEditDirective,
     SurfFormComponent,
-    SpotSearchComponent
+    SpotSearchComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
