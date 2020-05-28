@@ -1,0 +1,7 @@
+:host ::ng-deep .btn {
+    margin: 10px;
+}
+
+:host .h1 {
+    margin-top: 10px;
+}

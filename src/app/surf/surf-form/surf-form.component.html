@@ -2,26 +2,34 @@
     <!-- <form *ngIf="spot" (ngSubmit)="onSubmitClick()" #surSpotForm="ngForm"> -->
         <div class="container col-sm-6" *ngIf=editSpot>
             <h1>Edition du Spot: {{spot.nom}}</h1><br>
-          <form [spot]="spot">
+          <form (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="nom">Nom du Spot:</label>
-              <input  type="text" placeholder="{{spot.nom}}" appPlaceHolderEdit 
-                      class="form-control" id="nom" 
-                      [(ngModel)]="spot.nom" name="nom" 
-                      #name="ngModel">
+              <input    type="text"  class="form-control" id="nom" name="nom" 
+                        placeholder="{{spot.nom}}" appPlaceHolderEdit
+                        [(ngModel)]="spot.nom"
+                        #name="ngModel" ngModel>
               <!--#name="ngModel" Permet de déclarer le champ sur lequel elle est rattachée comme un champ de tye 'form-control' -->
+              <!-- Ca permet d'avoir accès à l'état de validité du formulaire ailleurs dans le template -->
+              <!-- Du genre, est-il valide? A-t-il déjà été édité par l'utilisateur? -->
             </div>
             <div class="form-group">
               <label for="type">Type de Spot:</label>
-              <input type="text" class="form-control" id="type">
+              <input type="text" class="form-control" id="type" name="type"
+              appPlaceHolderEdit placeholder="{{spot.type}}"
+              #name="ngModel" ngModel>
             </div>
             <div class="form-group">
               <label for="houle">Houle Saturation:</label>
-              <input type="text" class="form-control" id="hauteurSaturation">
+              <input type="text" class="form-control" id="hauteurSaturation" name="hauteurSaturation"
+              appPlaceHolderEdit placeholder="{{spot.hauteurSaturation}}"
+              #name="ngModel" ngModel>
             </div>
             <div class="form-group">
               <label for="maree">Maree Optimale:</label>
-              <input type="text" class="form-control" id="maree">
+              <input type="text" class="form-control" id="maree" name="maree"
+              appPlaceHolderEdit placeholder="{{spot.maree}}"
+              #name="ngModel" ngModel>
             </div>
             <!-- A AJOUTER -->
             <!-- <div class="form-group">
@@ -30,13 +38,18 @@
             </div> -->
             <div class="form-group">
               <label for="directionVent">Direction optimale du Vent:</label>
-              <input type="text" class="form-control" id="directionVent">
+              <input type="text" class="form-control" id="directionVent" name="directionVent"
+              appPlaceHolderEdit placeholder="{{spot.directionVent}}"
+              #name="ngModel" ngModel>
             </div>
             <div class="form-group">
               <label for="region">Region:</label>
-              <input type="text" class="form-control" id="region">
+              <input type="text" class="form-control" id="region" name="region"
+              appPlaceHolderEdit placeholder="{{spot.region}}"
+              #name="ngModel" ngModel>
             </div>
             <button type="submit" class="btn btn-primary" >Submit</button>
+            <button class="btn btn-primary" (click) = onReturn() >Cancel</button>
             <!-- (click) = onSubmitClick() on va mettre ça dans l''action' du form -->
           </form>
           

@@ -48,55 +48,17 @@
             </tr>
           </tbody>
         </table>
-        <button class="btn btn-primary" (click) = onEditClick() >Editer</button>
-      
-    </div>
+        <button class="btn btn-primary" (click) = onEdit(spot)>Editer</button>
+        <button class="btn btn-primary" (click) = onReturn()>Retour</button>
+        <button class="btn btn-danger" (click) = deleteConfirmClick(spot)>Supprimer</button>
 
-    <!-- Edition -->
-    <!-- <form *ngIf="spot" (ngSubmit)="onSubmitClick()" #surSpotForm="ngForm"> -->
-      <div class="container col-sm-6" *ngIf=editSpot>
-        <h1>Edition du Spot: {{spot.nom}}</h1><br>
-      <form [spot]="spot">
-        <div class="form-group">
-          <label for="nom">Nom du Spot:</label>
-          <input  type="text" placeholder="{{spot.nom}}" appPlaceHolderEdit 
-                  class="form-control" id="nom" 
-                  [(ngModel)]="spot.nom" name="nom" 
-                  #name="ngModel">
-          <!--#name="ngModel" Permet de déclarer le champ sur lequel elle est rattachée comme un champ de tye 'form-control' -->
-        </div>
-        <div class="form-group">
-          <label for="type">Type de Spot:</label>
-          <input type="text" class="form-control" id="type">
-        </div>
-        <div class="form-group">
-          <label for="houle">Houle Saturation:</label>
-          <input type="text" class="form-control" id="hauteurSaturation">
-        </div>
-        <div class="form-group">
-          <label for="maree">Maree Optimale:</label>
-          <input type="text" class="form-control" id="maree">
-        </div>
-        <!-- A AJOUTER -->
-        <!-- <div class="form-group">
-          <label for="vent">Vent Saturation:</label>
-          <input type="text" class="form-control" id="ventSaturation">
-        </div> -->
-        <div class="form-group">
-          <label for="directionVent">Direction optimale du Vent:</label>
-          <input type="text" class="form-control" id="directionVent">
-        </div>
-        <div class="form-group">
-          <label for="region">Region:</label>
-          <input type="text" class="form-control" id="region">
-        </div>
-        <button type="submit" class="btn btn-primary" >Submit</button>
-        <!-- (click) = onSubmitClick() on va mettre ça dans l''action' du form -->
-      </form>
+        <div class="alert alert-danger" *ngIf=deleteConfirm>
+          <strong>Warning!</strong> Êtes-vous sur de vouloir supprimer le spot {{spot.nom}}?
+          <button class="btn btn-warning" (click) = onCancelDelete()>Non</button>
+          <button class="btn btn-danger btn-sm" (click) = delete(spot)>Oui</button>
+        </div> 
       
     </div>
-   
-    <!-- </form> -->
 
     <div class="col-sm-6" id="map" *ngIf=!editSpot>
       <h2>Itinéraire</h2>

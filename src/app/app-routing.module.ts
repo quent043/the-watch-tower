@@ -8,11 +8,12 @@ import { WindMapComponent } from './surf/wind-map/wind-map.component';
 
 const routes: Routes = [
   // { path: 'dashboard', component: DashboardComponent},
-  //   //  children: [    
-  //   //    { path: 'detail-spot', component: DetailSpotComponent }]},
+  //    children: [    
+  //      { path: 'detail-spot', component: DetailSpotComponent }]},
   // { path: 'dashboard/detail-spot/:id', component: DetailSpotComponent},
   // { path: 'dashboard/wind-map', component: WindMapComponent},
-  { path: 'default', component: DashboardComponent },
+  // { path: 'default', component: DashboardComponent },
+  { path: 'dashboard', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -9,7 +9,7 @@ import { SurfService } from './surf.service';
 import { PlaceHolderEditDirective } from './Pipes_Directives/place-holder-edit.directive';
 import { FormsModule } from '@angular/forms';
 import { SurfFormComponent } from './surf-form/surf-form.component';
-import { TypeSpotColorPipe } from './Pipes_Directives/type-spot-color.pipe';
+import { SpotSearchComponent } from './spot-search/spot-search.component';
 
 
 
@@ -21,7 +21,7 @@ import { TypeSpotColorPipe } from './Pipes_Directives/type-spot-color.pipe';
     TableHighlightDirective,
     PlaceHolderEditDirective,
     SurfFormComponent,
-    TypeSpotColorPipe
+    SpotSearchComponent
   ],
   imports: [
     CommonModule,

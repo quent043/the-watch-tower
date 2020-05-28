@@ -12,6 +12,10 @@ export class DashboardComponent implements OnInit {
 
   listeSpots: DetailSpot[] = null;
   isOneSpotSelected: boolean;
+  origin: {
+    lat: Number, 
+    long: Number
+  };
 
   constructor(
     private router: Router,
@@ -19,9 +23,17 @@ export class DashboardComponent implements OnInit {
     ) { }                                 //et son instance est unique
 
   ngOnInit() {
-    this.listeSpots = this.surfService.getSurfSpots();
+    this.getSpots();
     this.isOneSpotSelected = false;
+    this.origin = this.surfService.geoLocate(); //TODO Je ne sais pas pk mais si on ne géolocate pas ici, la géolocation ne se fait pas au premier appel dans la page 
+    //de détail, il faut refresh
+  }
 
+  getSpots(): void {
+    // this.listeSpots = this.surfService.getSurfSpots();
+    this.surfService.getSurfSpots()
+    .subscribe(liste => this.listeSpots = liste); //liste c'est le nom 
+    //qu'on donne au paramètre de retour de l'observable retourné par la méthode.
   }
 
   onSelectSpot(detailSpot: DetailSpot) {
