@@ -47,3 +47,5 @@ Thumbs.db
 
 # Perso
 /config.ts
+/src/app/params.service.spec.ts
+/src/app/params.service.ts

@@ -2,7 +2,8 @@ import { DetailSpot } from './detail-spot';
 
 export  const SURF_SPOTS: DetailSpot[] = [
     {
-        id: 1,
+        id: 1570,
+        mswId: 1570,
         nom: "Les Dunes",
         houle: 2.8,
         orientationHoule: "NW-SW-S",
@@ -17,6 +18,7 @@ export  const SURF_SPOTS: DetailSpot[] = [
     },
     {
         id: 2,
+        mswId: null,
         nom: "La Sauzaie",
         houle: 2.4,
         orientationHoule: "W-NW-SW",
@@ -31,6 +33,7 @@ export  const SURF_SPOTS: DetailSpot[] = [
     },
     {
         id: 3,
+        mswId: null,
         nom: "Sauveterre",
         houle: 3,
         orientationHoule: "W-SW-NW",
@@ -45,6 +48,7 @@ export  const SURF_SPOTS: DetailSpot[] = [
     },
     {
         id: 4,
+        mswId: null,
         nom: "Les Sables d'Olonne",
         houle: 2.5,
         orientationHoule: "SW",
@@ -59,6 +63,7 @@ export  const SURF_SPOTS: DetailSpot[] = [
     },
     {
         id: 5,
+        mswId: null,
         nom: "L'aubraie",
         houle: 2.8,
         orientationHoule: "W-SW-NW",
@@ -73,6 +78,7 @@ export  const SURF_SPOTS: DetailSpot[] = [
     },
     {
         id: 6,
+        mswId: 1573,
         nom: "Bud Bud",
         houle: 3.5,
         orientationHoule: "SW-NW",

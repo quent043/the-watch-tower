@@ -1,5 +1,6 @@
 export class DetailSpot {
         id: number;
+        mswId: number;
         nom: string;
         houle: number;
         orientationHoule: string;
@@ -12,8 +13,9 @@ export class DetailSpot {
         coordonnees: String;
         isSelected: boolean = false;
 
-        constructor (id, nom, houle, orientationHoule, hauteurSaturation, type, region, maree, vent, directionVent, coordonnees) {
+        constructor (id, mswId, nom, houle, orientationHoule, hauteurSaturation, type, region, maree, vent, directionVent, coordonnees) {
           this.id = id;
+          this.mswId = mswId;
           this.nom = nom;
           this.houle = houle;
           this.orientationHoule = orientationHoule;

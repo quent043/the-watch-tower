@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
     this.isOneSpotSelected = false;
     this.origin = this.surfService.geoLocate(); //TODO Je ne sais pas pk mais si on ne géolocate pas ici, la géolocation ne se fait pas au premier appel dans la page 
     //de détail, il faut refresh
+    this.surfService.getMswUrl(1570); // TODO a delete
   }
 
   getSpots(): void {

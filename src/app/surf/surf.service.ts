@@ -4,6 +4,9 @@ import { DetailSpot } from './detail-spot';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+import { ParamsService } from '../params.service';
+import { MagicSeaWeedDetailSpot } from './magicseaweed-spot';
+import { MagicSeaWeedDetailSpotTest } from './magicseaweed-spot-test';
 
 @Injectable({       //Injectable ---> Contribue à l'injection de dépendances dans d'autres modules.
   providedIn: 'root'
@@ -17,12 +20,18 @@ export class SurfService {
   destination;
 
   constructor(
-    private http: HttpClient // ----> Va renvoyer un Json. Attention, ce n'est pas toujours le cas dans d'autres API.
+    private http: HttpClient, // ----> Va renvoyer un Json. Attention, ce n'est pas toujours le cas dans d'autres API.
+    private params: ParamsService
   ) { }
 
   private spotsUrl = 'api/spots'; //Point d'accès vers l'API. Fictive pour l'instant.
+  private mswUrl = 'http://magicseaweed.com/api';
+  // private mswUrlParameters = '&units=eu&fields=localTimestamp,swell.unit,swell.components.*,wind.*,condition.*';
+  private mswUrlParameters = '&units=eu&fields=localTimestamp';
+  private mswApiKey = this.params.getMagicSeaWeedApiKey();
 
   getSurfSpots(): Observable<DetailSpot[]> {
+    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot[]>(this.spotsUrl))
     return this.http.get<DetailSpot[]>(this.spotsUrl).pipe(  // méthode HttpClient.get<DetailSpots[]> retourne un Obersvable qui retourne un tableau de spots
       tap(_ => this.log(`fetched spot`)),                   // sur la route 'api/spots'.
       catchError(this.handleError(`get Spots`, []))   //Puis on va effectuer 2 opérations sur les données de retour.
@@ -30,29 +39,9 @@ export class SurfService {
                                                       //catchError interagit en interceptant les erreurs
   }
 
-  	/* log */
-	private log(log: string) {
-		console.info(log);
-  }
-  
-  	/* handleError */
-	private handleError<T>(operation = 'operation', result?: T) { //?: veut dire optionnel, on type le retour si on veut
-		return (error: any): Observable<T> => {
-			console.error(error);
-			console.log(`${operation} failed: ${error.message}`);
-
-			return of(result as T);//'of' --> transforme les données passées en paramètre en un Observable
-		};
-	  } 
-	
-	  //param 'operation' est le nom de la méthode qui a causé l'erreur, result est une donnée facultative --->
-	  // utile car result?: T permet à l'appli de toujours fonctionner en renvoyant un résultat adapté à la méthode qui
-	  //a levé l'erreur. Genre si un DetailSpot[] est attendu pour la méthode GETspots, ça va renvoyer un objet de 
-	  //ce type pour ne pas faire tout bugger
-
   getSurfSpot(id: number): Observable<DetailSpot> {
     const url = `${this.spotsUrl}/${id}`;
-
+    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot>(url))
     return this.http.get<DetailSpot>(url).pipe(
       tap(() => this.log(`fetched spot id=${id}`)),
       catchError(() => this.handleError(`getSpot id= ${id}`))
@@ -126,4 +115,40 @@ export class SurfService {
       }
     }
   // }
+
+    getMswUrl(id: number): void {
+      console.log(`${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`); // TODO a delete
+    }
+
+  getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> {
+    // const mswApiKey = this.params.getMagicSeaWeedApiKey();
+    const url = `${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`;
+    console.log("méthode getSurfSpotInfoMagicSeaWeed: url = " + url);
+    let mswData = MagicSeaWeedDetailSpotTest;
+    console.log(this.http.get<any>(url));
+    return this.http.get<MagicSeaWeedDetailSpotTest[]>(url).pipe(
+      tap(() => this.log(`fetched msw data id=${id}`)),
+      catchError(() => this.handleError<MagicSeaWeedDetailSpot[]>(`getMswData id= ${id}`, []))
+    );
+  }
+
+    	/* log */
+	private log(log: string) {
+		console.info(log);
+  }
+  
+  	/* handleError */
+	private handleError<T>(operation: String , result?: T) { //?: veut dire optionnel, on type le retour si on veut
+		return (error: any): Observable<T> => {
+			console.error(error);
+			console.log(`${operation} failed: ${error.message}`);
+
+			return of(result as T);//'of' --> transforme les données passées en paramètre en un Observable
+		};
+    } 
+	
+	  //param 'operation' est le nom de la méthode qui a causé l'erreur, result est une donnée facultative --->
+	  // utile car result?: T permet à l'appli de toujours fonctionner en renvoyant un résultat adapté à la méthode qui
+	  //a levé l'erreur. Genre si un DetailSpot[] est attendu pour la méthode GETspots, ça va renvoyer un objet de 
+	  //ce type pour ne pas faire tout bugger
 }
