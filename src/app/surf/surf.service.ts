@@ -90,15 +90,17 @@ export class SurfService {
 		);
 	}
 
-  geoLocate() { //TODO ne marche aps encore avec le local storage
+  geoLocate() { 
 
-    // if(localStorage.getItem('lat') && localStorage.getItem('long')) {
-    //   this.origin.lat = localStorage.getItem('lat');
-    //   this.origin.long = localStorage.getItem('long');
-    //   console.log("Coordonnées récupérées de la Session -> Lat:" + this.origin.lat + " long: " + this.origin.long);
-    //   return this.origin;
-    // } else 
-    // {
+    if(localStorage.getItem('lat') && localStorage.getItem('long')) {
+      console.log("Tentative de récupération des données de la Session -> Lat: " + +localStorage.getItem('lat') + " long: " + +localStorage.getItem('long'));
+      this.lat = +localStorage.getItem('lat');
+      this.long = +localStorage.getItem('long');
+      this.origin = { lat: this.lat, long: this.long};
+      console.log("Coordonnées récupérées de la Session -> Lat:" + this.origin.lat + " long: " + this.origin.long);
+      return this.origin;
+    } else 
+    {
       if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.lat = position.coords.latitude;
@@ -114,7 +116,7 @@ export class SurfService {
         alert("Your Browser does not support geolocation.")
       }
     }
-  // }
+  }
 
     getMswUrl(id: number): void {
       console.log(`${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`); // TODO a delete
