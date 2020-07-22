@@ -122,7 +122,7 @@ export class SurfService {
       console.log(`${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`); // TODO a delete
     }
 
-  getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> {
+  getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> { // TODO je suis parti sur une classe de test qui ne marche pas, il faudra changer pour la classe normale
     // const mswApiKey = this.params.getMagicSeaWeedApiKey();
     const url = `${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`;
     console.log("méthode getSurfSpotInfoMagicSeaWeed: url = " + url);
