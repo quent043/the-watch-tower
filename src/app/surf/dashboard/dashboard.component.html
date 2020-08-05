@@ -30,6 +30,8 @@
                 <th>Note</th>
               </tr>
             </thead>
+             <!-- Vu qu'on a déjà une directive active, on ne peut pas appliquer le pipe surfSpotTypeColor 
+            TODO: Essayer un container en plus genre div pour appliquer le pipe en plus?-->
             <tbody *ngFor="let spot of listeSpots" (click)="onSelectSpot(spot)" style="cursor: pointer;"
              highlightTable = "white">
               <tr>

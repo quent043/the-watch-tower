@@ -1,30 +1,39 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { stringify } from 'querystring';
   
 /*
- * Affiche un thème correspondant au type de spot de surf.
+ * Affiche une classe CSS correspondant au type de spot de surf.
  * Prend en argument le type du spot.
+ * Les classes CSS doivent être déclarées dans le module correspondant.
  * Exemple d'utilisation:
- *   {{ detailSpot.type | surfSpotTypeColor }}
+ *   class = {{ detailSpot.type | surfSpotTypeColor }}
 */
 @Pipe({name: 'surfSpotTypeColor'})
 export class SurfSpotTypeColorPipe implements PipeTransform {
   transform(type: string): string {
   
-    let color: string;
+    //let color: string;
+    let colorCssClass: string;
   
     switch (type) {
       case 'Beach Break':
-        color = 'blue lighten-1';
+        //color = 'blue lighten-1';
+        colorCssClass = "beach-break"
         break;
       case 'Reef':
-        color = 'red lighten-1';
+        //color = 'red lighten-1';
+        colorCssClass = "reef"
+        break;
+      case 'Point Break':
+        //color = 'red lighten-1';
+        colorCssClass = "point-break"
         break;
       default:
-        color = 'grey';
+        colorCssClass = "default";
         break;
     }
   
-    return 'background ' + color;
+    return colorCssClass;
   
   }
 }

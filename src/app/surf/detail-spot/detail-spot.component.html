@@ -6,7 +6,7 @@
     <div class="col-sm-6" *ngIf=!editSpot>
       
         <h2>{{spot.nom}}</h2>
-        <p>{{spot.type}}</p>            
+        <p class="{{spot.type | surfSpotTypeColor}}">{{spot.type}}</p>            
         <table class="table table-bordered">
           <thead>
             <tr>

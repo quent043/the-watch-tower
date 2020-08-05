@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { SurfFormComponent } from './surf-form/surf-form.component';
 import { SpotSearchComponent } from './spot-search/spot-search.component';
 import { LoaderComponent } from '../loader/loader.component';
+import { SurfSpotTypeColorPipe } from './Pipes_Directives/spot-type.pipe';
 
 
 
@@ -21,6 +22,7 @@ import { LoaderComponent } from '../loader/loader.component';
     DetailSpotComponent,
     TableHighlightDirective,
     PlaceHolderEditDirective,
+    SurfSpotTypeColorPipe,
     SurfFormComponent,
     SpotSearchComponent,
     LoaderComponent

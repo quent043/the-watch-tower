@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { LoaderComponent } from './loader/loader.component';
+import { ParamsService } from './params.service';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { LoaderComponent } from './loader/loader.component';
     SurfModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ParamsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

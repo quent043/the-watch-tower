@@ -6,6 +6,26 @@
     
 }
 
+.beach-break {
+    color:blue;
+    font-weight: bold;
+}
+
+.reef {
+    color:red;
+    font-weight: bold;
+}
+
+.point-break {
+    color:green;
+    font-weight: bold;
+}
+
+.default {
+    color: grey;
+    font-weight: bold;
+}
+
 h1 {
     text-align: center;
 }
