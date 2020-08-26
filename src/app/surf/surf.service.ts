@@ -122,6 +122,7 @@ export class SurfService {
       console.log(`${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`); // TODO a delete
     }
 
+    //TODO: Détailler le mapping du résultat de la raqupete JSON à chaque élément de l'objet MagicSeaWeedDetailSpot
   getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> { // TODO je suis parti sur une classe de test qui ne marche pas, il faudra changer pour la classe normale
     // const mswApiKey = this.params.getMagicSeaWeedApiKey();
     const url = `${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`;

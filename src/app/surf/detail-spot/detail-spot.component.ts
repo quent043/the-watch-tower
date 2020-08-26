@@ -60,7 +60,7 @@ export class DetailSpotComponent implements OnInit {
     this.editSpot = true;
     console.log("EditSpot: " + this.editSpot);
     console.log("Objet envoyé: "+ spot.nom + " " + spot.id);
-    let link = ['dashboard/detail-spot/edit', spot.id];
+    let link = ['dashboard/spot-edit/', spot.id];
     this.router.navigate(link);
   }
 

@@ -13,7 +13,7 @@ const routes: Routes = [
   // { path: 'dashboard/detail-spot/:id', component: DetailSpotComponent},
   // { path: 'dashboard/wind-map', component: WindMapComponent},
   // { path: 'default', component: DashboardComponent },
-  { path: 'dashboard', pathMatch: 'full', redirectTo: 'dashboard' },
+  // { path: 'dashboard', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '**', component: PageNotFoundComponent }
 ];
