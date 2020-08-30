@@ -8,7 +8,7 @@ import { ParamsService } from '../params.service';
 import { MagicSeaWeedDetailSpot } from './magicseaweed-spot';
 import { MagicSeaWeedDetailSpotTest } from './magicseaweed-spot-test';
 
-@Injectable({       //Injectable ---> Contribue à l'injection de dépendances dans d'autres modules.
+@Injectable({
   providedIn: 'root'
 })
 export class SurfService {
@@ -20,50 +20,63 @@ export class SurfService {
   destination;
 
   constructor(
-    private http: HttpClient, // ----> Va renvoyer un Json. Attention, ce n'est pas toujours le cas dans d'autres API.
+    private http: HttpClient,
     private params: ParamsService
   ) { }
 
-  private spotsUrl = 'api/spots'; //Point d'accès vers l'API. Fictive pour l'instant.
+  private spotsUrl = 'http://localhost:8080/the_watch_tower';
   private mswUrl = 'http://magicseaweed.com/api';
   // private mswUrlParameters = '&units=eu&fields=localTimestamp,swell.unit,swell.components.*,wind.*,condition.*';
   private mswUrlParameters = '&units=eu&fields=localTimestamp';
   private mswApiKey = this.params.getMagicSeaWeedApiKey();
 
   getSurfSpots(): Observable<DetailSpot[]> {
-    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot[]>(this.spotsUrl))
-    return this.http.get<DetailSpot[]>(this.spotsUrl).pipe(  // méthode HttpClient.get<DetailSpots[]> retourne un Obersvable qui retourne un tableau de spots
-      tap(_ => this.log(`fetched spot`)),                   // sur la route 'api/spots'.
-      catchError(this.handleError(`get Spots`, []))   //Puis on va effectuer 2 opérations sur les données de retour.
-    );                                                //tap effectue une action quelconque (debug etc.)
-                                                      //catchError interagit en interceptant les erreurs
+    const url = `${this.spotsUrl}/getAll`;
+
+    this.http.get<DetailSpot[]>(url).toPromise()
+    .then(data => console.log(data))
+    .then(data => console.log(data));
+    // TODO: PK seulement la première valeur s'affiche et on a 'undefined' pour la 2eme? 
+    //Promise consommable une fois, pour l'observable onpeut le farie plusieurs fois
+
+
+    return this.http.get<DetailSpot[]>(url).pipe(
+      tap(data => this.log(`Observable: fetched spot: ${JSON.stringify(data)}`)),
+      tap(data => this.log(`Observable: fetched spot: ${JSON.stringify(data)}`)),
+      catchError(this.handleError(`get Spots`, []))
+    );
+                                                      
   }
 
-  getSurfSpot(id: number): Observable<DetailSpot> {
+  getSurfSpot(id: number): Promise<DetailSpot> {
     const url = `${this.spotsUrl}/${id}`;
-    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot>(url))
-    return this.http.get<DetailSpot>(url).pipe(
-      tap(() => this.log(`fetched spot id=${id}`)),
-      catchError(() => this.handleError(`getSpot id= ${id}`))
-    );
-    // let surfSpots = this.getSurfSpots();
-    // for (let i = 0; i < surfSpots.length; i++) {
-    //   if (id === surfSpots[i].id) {
-    //     return surfSpots[i];
-    //   }
-    // }
+    console.log("méthode getSurfSpot(), résultat de requête get: " + this.http.get<DetailSpot>(url))
+    return this.http.get<DetailSpot>(url).toPromise()
+    //.then(data => {console.log(`Fetched Surf Spot: ${data.nom}`)})
+    
+    //return this.http.get<DetailSpot>(url);
+    
+    ;
+    
+    // pipe(
+    //   tap(() => this.log(`fetched spot id=${id}`)),
+    //   catchError(() => this.handleError(`getSpot id= ${id}`))
+    // );
   }
 
   updateSpot(spot: DetailSpot): Observable<DetailSpot> {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}) 
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
+    const putUrl = `${this.spotsUrl}/${spot.id}`; 
 
-    return this.http.put(this.spotsUrl, spot, httpOptions).pipe(
+    return this.http.put(putUrl, spot, httpOptions)
+    .pipe(
       tap(() => this.log(`Updated spot id=${spot.id}`)),
       catchError(this.handleError<any>(`UpdatedSpot`))
     );
   }
+  //Avec les Observables typés, on doit déclarer la méthode CatchError.
 
   deleteSpot (spot: DetailSpot): Observable<DetailSpot> {
     const url = `${this.spotsUrl}/${spot.id}`;
@@ -122,6 +135,7 @@ export class SurfService {
       console.log(`${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`); // TODO a delete
     }
 
+    //TODO: Détailler le mapping du résultat de la raqupete JSON à chaque élément de l'objet MagicSeaWeedDetailSpot
   getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> { // TODO je suis parti sur une classe de test qui ne marche pas, il faudra changer pour la classe normale
     // const mswApiKey = this.params.getMagicSeaWeedApiKey();
     const url = `${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`;

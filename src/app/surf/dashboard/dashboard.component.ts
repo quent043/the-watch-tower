@@ -27,19 +27,20 @@ export class DashboardComponent implements OnInit {
     this.isOneSpotSelected = false;
     this.origin = this.surfService.geoLocate(); //TODO Je ne sais pas pk mais si on ne géolocate pas ici, la géolocation ne se fait pas au premier appel dans la page 
     //de détail, il faut refresh
-    this.surfService.getMswUrl(1570); // TODO a delete
   }
 
   getSpots(): void {
     // this.listeSpots = this.surfService.getSurfSpots();
     this.surfService.getSurfSpots()
-    .subscribe(liste => this.listeSpots = liste); //liste c'est le nom 
-    //qu'on donne au paramètre de retour de l'observable retourné par la méthode.
+    .subscribe(liste => this.listeSpots = liste);
   }
 
   onSelectSpot(detailSpot: DetailSpot) {
     detailSpot.isSelected = true;
     this.isOneSpotSelected = true;
+
+
+    //TODO changer méthode pour l'appel au surf service
     console.log("Spot Sélectionné " + detailSpot.nom + " " + detailSpot.isSelected + " " + this.isOneSpotSelected)
     let link = ['dashboard/detail-spot', detailSpot.id];
     this.router.navigate(link);

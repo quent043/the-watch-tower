@@ -5,14 +5,9 @@
           <form (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="nom">Nom du Spot:</label>
-              <!-- TODO: Actuellement le form ne persiste rien, juste le premier chgamp 'nom' car on l'a déclaré en NgModel. Du coup c'est pour ça que la directive ne marche pas sur ce champ -->
               <input    type="text"  class="form-control" id="nom" name="nom" 
-                        placeholder="{{spot.nom}}" appPlaceHolderEdit
-                        [(ngModel)]="spot.nom"
+                        placeholder="{{spot.nom}}" appPlaceHolderEdit        
                         #name="ngModel" ngModel>
-              <!--#name="ngModel" Permet de déclarer le champ sur lequel elle est rattachée comme un champ de tye 'form-control' -->
-              <!-- Ca permet d'avoir accès à l'état de validité du formulaire ailleurs dans le template -->
-              <!-- Du genre, est-il valide? A-t-il déjà été édité par l'utilisateur? -->
             </div>
             <div class="form-group">
               <label for="type">Type de Spot:</label>

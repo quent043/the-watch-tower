@@ -24,21 +24,18 @@ export class SurfFormComponent implements OnInit {
     this.editSpot = true;
     let id = +this.route.snapshot.params['id'];
     this.surfService.getSurfSpot(id)
-      .subscribe(fetchedSpot => this.spot = fetchedSpot);
+      .then(fetchedSpot => this.spot = fetchedSpot);
 
   }
 
-//A MODIFIER
-  onSubmit(): void { //Dans l'appli Pokemon, les changement sont déjà pris en compte avec NgModel, nous on veut faire un post.
+  onSubmit(): void {
     console.log("Form Submitted");
-    // let link = ["/dashboard/detail-spot", this.spot.id];
-    // this.editSpot = false;
-    // this.router.navigate(link);
+    console.log("Data Submitted:" + this.spot.nom)
+
     this.surfService.updateSpot(this.spot)  //Persiste les données modifiées
     .subscribe(() => this.onReturn());  //Puis retourne à la page d'avant
   }
 
-  //A MODIFIER
   onReturn(): void {                        //Fait juste un retour au link d'avant sans persister
     console.log("Back to detail-spot");
     let link = ["/dashboard/detail-spot", this.spot.id];

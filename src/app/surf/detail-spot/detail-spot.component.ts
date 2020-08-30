@@ -34,7 +34,8 @@ export class DetailSpotComponent implements OnInit {
     let id = +this.route.snapshot.params['id'];
       // this.spot = this.surfService.getSurfSpot(id);
     this.surfService.getSurfSpot(id)
-    .subscribe(fetchedSpot => this.spot = fetchedSpot);
+    .then(fetchedSpot => this.spot = fetchedSpot)
+    .then(data => console.log(`Detail-spot-component: getSurfSpot(${data.id}) Fetched spot: ${data.nom}`));
 
     this.origin = this.surfService.geoLocate();
     this.editSpot = false;
@@ -45,14 +46,14 @@ export class DetailSpotComponent implements OnInit {
 
     //  if(this.spot) {
       // let mswId = this.spot.mswId;
-      this.surfService.getSurfSpotInfoMagicSeaWeed(id).
-      subscribe(
-        fetchedSpot => {
-        // this.mswData = fetchedSpot
-        this.mswData.mswId = id
-        },
-        (error) => {console.log("EEEEEEEEERRRRREEEEEURRR: " + error);}
-        );
+      // this.surfService.getSurfSpotInfoMagicSeaWeed(id).
+      // subscribe(
+      //   fetchedSpot => {
+      //   // this.mswData = fetchedSpot
+      //   this.mswData.mswId = id
+      //   },
+      //   (error) => {console.log("EEEEEEEEERRRRREEEEEURRR: " + error);}
+      //   );
     // }
   }
 
@@ -60,7 +61,7 @@ export class DetailSpotComponent implements OnInit {
     this.editSpot = true;
     console.log("EditSpot: " + this.editSpot);
     console.log("Objet envoyé: "+ spot.nom + " " + spot.id);
-    let link = ['dashboard/detail-spot/edit', spot.id];
+    let link = ['dashboard/spot-edit/', spot.id];
     this.router.navigate(link);
   }
 

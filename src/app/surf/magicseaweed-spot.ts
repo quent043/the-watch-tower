@@ -40,6 +40,7 @@ export class MagicSeaWeedDetailSpot {
         this.fetchedData.swell.components.combined.height = swellHeight,
         this.fetchedData.swell.components.combined.period = swellPeriod,
         this.fetchedData.swell.components.combined.direction = swellDirection,
+        this.fetchedData.swell.components.combined.compassDirection = swellCompassDirection,
         this.fetchedData.wind.speed = windSpeed,
         this.fetchedData.wind.direction = windDirection,
         this.fetchedData.wind.compassDirection = windCompassDirection,
