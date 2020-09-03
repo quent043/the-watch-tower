@@ -27,7 +27,7 @@ export class SurfService {
 
   private spotsUrl = 'http://localhost:8080/the_watch_tower';
   // private mswUrl = 'http://magicseaweed.com/api'; ----> config proxy: /msw == http://magicseaweed.com maintenant
-  private mswUrl = 'api';
+  private mswUrl = 'msw/api';
   // private mswUrlParameters = '&units=eu&fields=localTimestamp,swell.unit,swell.components.*,wind.*,condition.*';
   private mswUrlParameters = '&units=eu&fields=localTimestamp';
   private mswApiKey = this.params.getMagicSeaWeedApiKey();
