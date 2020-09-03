@@ -27,6 +27,7 @@ export class SurfFormComponent implements OnInit {
       .then(fetchedSpot => this.spot = fetchedSpot);
 
   }
+  //TODO: Ajouter règkes validation.
 
   onSubmit(): void {
     console.log("Form Submitted");
@@ -41,6 +42,10 @@ export class SurfFormComponent implements OnInit {
     let link = ["/dashboard/detail-spot", this.spot.id];
     this.editSpot = false;
     this.router.navigate(link);
+  }
+
+  onFocus(): void {
+    
   }
 
 }

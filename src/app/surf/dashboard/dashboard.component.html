@@ -52,14 +52,11 @@
   
       </div>
       <div class="col-sm-5" [hidden]="isOneSpotSelected">
-        <h2>Specific Spot</h2>
-        <h5>Les Dunes - Brétignolles</h5>
-        <div class="container">
-          <iframe src="https://magicseaweed.com/Les-Dunes-Surf-Report/1570/Embed/" 
-          width="800" height="300" frameborder="0"></iframe>
-  
-        </div>
-     
+        <h2>Live Data</h2>
+          <h5>Les Dunes - Brétignolles</h5>
+            <p *ngFor= "let liveData of liveDataTable">
+              {{liveData | json}}
+            </p>
         <br><br><br><br><br><br>
       </div>
 
