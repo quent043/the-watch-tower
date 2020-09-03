@@ -35,7 +35,8 @@ export class DetailSpotComponent implements OnInit {
       // this.spot = this.surfService.getSurfSpot(id);
     this.surfService.getSurfSpot(id)
     .then(fetchedSpot => this.spot = fetchedSpot)
-    .then(data => console.log(`Detail-spot-component: getSurfSpot(${data.id}) Fetched spot: ${data.nom}`));
+    //.then(data => console.log(`Detail-spot-component: getSurfSpot(${data.id}) Fetched spot: ${data.nom}`))
+    .then(data => console.log(data));
 
     this.origin = this.surfService.geoLocate();
     this.editSpot = false;

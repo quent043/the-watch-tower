@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SurfModule } from './surf/surf.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ParamsService } from './params.service';
 
 
@@ -21,6 +21,7 @@ import { ParamsService } from './params.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     SurfModule,
     AppRoutingModule
   ],
