@@ -78,16 +78,21 @@ export class SurfService {
     //   catchError(() => this.handleError<MagicSeaWeedDetailSpotTest[]>(`getMswData id= ${id}`, []))
     // );
     return this.http.jsonp(url, 'callback').pipe(
-      tap(() => this.log(`fetched msw data id=${id}`))
-      // catchError(() => this.handleError<MagicSeaWeedDetailSpotTest[]>("msw sa race()", []))
+      tap(() => this.log(`fetched msw data id=${id}`)),
+      catchError(() => this.handleError<MagicSeaWeedDetailSpotTest[]>("msw sa race()", []))
     );
+  }
+
+  addSpot(spot: DetailSpot): void {
+    this.http.post(this.spotsUrl, spot);
+    console.log("SurfService: Method addSpot: " + spot.nom + " " + spot.id)
   }
 
   updateSpot(spot: DetailSpot): Observable<DetailSpot> {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    const putUrl = `${this.spotsUrl}/${spot.id}`; 
+    const putUrl = `${this.spotsUrl}/${spot.id}`;
 
     return this.http.put(putUrl, spot, httpOptions).pipe(
       tap(() => this.log(`Updated spot id=${spot.id}`)),

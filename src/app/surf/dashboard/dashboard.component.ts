@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
     this.isOneSpotSelected = true;
 
 
-    //TODO changer méthode pour l'appel au surf service
     console.log("Spot Sélectionné " + detailSpot.nom + " " + detailSpot.isSelected + " " + this.isOneSpotSelected)
     let link = ['dashboard/detail-spot', detailSpot.id];
     this.router.navigate(link);
