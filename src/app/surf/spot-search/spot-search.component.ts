@@ -47,7 +47,8 @@ export class SpotSearchComponent implements OnInit {
   /* Résumé: Dès qu'on rentre un caractère ça appelle 'search()', qui ajoute le caractère à 'searchTerms' 
    qui est un Subject, en gros un Observable qui récupère des String. Dès que la page recharge ça lance OnInit(),
    ici l'évènement 'keyup' la recharge. Dès qu'un terme est rentré ça appelle SurfService.searchSpot(term), 
-   qui renvoie un Observable<DetailSpots[]> qu'on stocke dans $spots. */
+   qui renvoie un Observable<DetailSpots[]> qu'on stocke dans l'Observable<DetailSpot[]> $spots
+   qu'apparemment on peut lire directement sur du HTML. */
 
    gotoDetail(spot: DetailSpot): void {
     let link = ['/dashboard/detail-spot', spot.id];
