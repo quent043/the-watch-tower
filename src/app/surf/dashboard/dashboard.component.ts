@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailSpot } from '../detail-spot';
 import { SurfService } from '../surf.service';
+import { MagicSeaWeedDetailSpotTest } from '../magicseaweed-spot-test';
+import { MagicSeaWeedDetailSpot } from '../magicseaweed-spot';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +18,7 @@ export class DashboardComponent implements OnInit {
     lat: Number, 
     long: Number
   };
+  liveDataTable: MagicSeaWeedDetailSpot[];
 
   constructor(
     private router: Router,
@@ -27,19 +30,26 @@ export class DashboardComponent implements OnInit {
     this.isOneSpotSelected = false;
     this.origin = this.surfService.geoLocate(); //TODO Je ne sais pas pk mais si on ne géolocate pas ici, la géolocation ne se fait pas au premier appel dans la page 
     //de détail, il faut refresh
-    this.surfService.getMswUrl(1570); // TODO a delete
+    this.getLiveData();
   }
 
   getSpots(): void {
     // this.listeSpots = this.surfService.getSurfSpots();
     this.surfService.getSurfSpots()
-    .subscribe(liste => this.listeSpots = liste); //liste c'est le nom 
-    //qu'on donne au paramètre de retour de l'observable retourné par la méthode.
+    .subscribe(liste => this.listeSpots = liste);
+  }
+
+  getLiveData(): void {
+    this.surfService.getSurfSpotInfoMagicSeaWeed(1570)
+    .subscribe(data => this.liveDataTable = data,
+      error => console.log(error));
   }
 
   onSelectSpot(detailSpot: DetailSpot) {
     detailSpot.isSelected = true;
     this.isOneSpotSelected = true;
+
+
     console.log("Spot Sélectionné " + detailSpot.nom + " " + detailSpot.isSelected + " " + this.isOneSpotSelected)
     let link = ['dashboard/detail-spot', detailSpot.id];
     this.router.navigate(link);

@@ -7,8 +7,9 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { ParamsService } from '../params.service';
 import { MagicSeaWeedDetailSpot } from './magicseaweed-spot';
 import { MagicSeaWeedDetailSpotTest } from './magicseaweed-spot-test';
+import { JsonPipe } from '@angular/common';
 
-@Injectable({       //Injectable ---> Contribue à l'injection de dépendances dans d'autres modules.
+@Injectable({
   providedIn: 'root'
 })
 export class SurfService {
@@ -20,50 +21,87 @@ export class SurfService {
   destination;
 
   constructor(
-    private http: HttpClient, // ----> Va renvoyer un Json. Attention, ce n'est pas toujours le cas dans d'autres API.
+    private http: HttpClient,
     private params: ParamsService
   ) { }
 
-  private spotsUrl = 'api/spots'; //Point d'accès vers l'API. Fictive pour l'instant.
-  private mswUrl = 'http://magicseaweed.com/api';
+  private spotsUrl = 'http://localhost:8080/the_watch_tower';
+  // private mswUrl = 'http://magicseaweed.com/api'; ----> config proxy: /msw == http://magicseaweed.com maintenant
+  private mswUrl = 'msw/api';
   // private mswUrlParameters = '&units=eu&fields=localTimestamp,swell.unit,swell.components.*,wind.*,condition.*';
   private mswUrlParameters = '&units=eu&fields=localTimestamp';
   private mswApiKey = this.params.getMagicSeaWeedApiKey();
 
   getSurfSpots(): Observable<DetailSpot[]> {
-    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot[]>(this.spotsUrl))
-    return this.http.get<DetailSpot[]>(this.spotsUrl).pipe(  // méthode HttpClient.get<DetailSpots[]> retourne un Obersvable qui retourne un tableau de spots
-      tap(_ => this.log(`fetched spot`)),                   // sur la route 'api/spots'.
-      catchError(this.handleError(`get Spots`, []))   //Puis on va effectuer 2 opérations sur les données de retour.
-    );                                                //tap effectue une action quelconque (debug etc.)
-                                                      //catchError interagit en interceptant les erreurs
+    const url = `${this.spotsUrl}/getAll`;
+    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot[]>(url))
+
+    this.http.get<DetailSpot[]>(url).toPromise()
+    .then(data => console.log(data));
+
+
+    return this.http.get<DetailSpot[]>(url).pipe(
+      tap(data => this.log(`Observable: fetched spot: ${JSON.stringify(data)}`)),
+      tap(data => this.log(`Observable: fetched spot: ${JSON.stringify(data)}`)),
+      catchError(this.handleError(`get Spots`, []))
+    );
+                                                      
   }
 
-  getSurfSpot(id: number): Observable<DetailSpot> {
+  getSurfSpot(id: number): Promise<DetailSpot> {
     const url = `${this.spotsUrl}/${id}`;
-    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot>(url))
-    return this.http.get<DetailSpot>(url).pipe(
-      tap(() => this.log(`fetched spot id=${id}`)),
-      catchError(() => this.handleError(`getSpot id= ${id}`))
+    console.log(`méthode getSurfSpot(${id})`)
+    return this.http.get<DetailSpot>(url).toPromise();
+  }
+
+  // getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> {
+    getSurfSpotInfoMagicSeaWeed(id: number): Observable<any> {
+    this.mswUrlParameters = '&units=eu';
+    const url = `${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`;
+    const httpOptions = {
+      headers: new HttpHeaders()
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS')
+      .set('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token')
+    };
+    //   {'Access-Control-Allow-Origin':'*'},
+    //   {'Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS'},
+    //   {'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'};
+    //   )
+    // };
+
+    console.log("méthode getSurfSpotInfoMagicSeaWeed: url = " + url);
+    // let mswData = MagicSeaWeedDetailSpot;
+    // console.log(this.http.get<any>(url, httpOptions).toPromise());
+    // return this.http.get<MagicSeaWeedDetailSpotTest[]>(url, httpOptions).pipe(
+    //   tap(() => this.log(`fetched msw data id=${id}`)),
+    //   catchError(() => this.handleError<MagicSeaWeedDetailSpotTest[]>(`getMswData id= ${id}`, []))
+    // );
+    return this.http.jsonp(url, 'callback').pipe(
+      tap(() => this.log(`fetched msw data id=${id}`)),
+      catchError(() => this.handleError<MagicSeaWeedDetailSpotTest[]>("msw sa race()", []))
     );
-    // let surfSpots = this.getSurfSpots();
-    // for (let i = 0; i < surfSpots.length; i++) {
-    //   if (id === surfSpots[i].id) {
-    //     return surfSpots[i];
-    //   }
-    // }
+  }
+
+  addSpot(spot: DetailSpot): void {
+    this.http.post(this.spotsUrl, spot);
+    console.log("SurfService: Method addSpot: " + spot.nom + " " + spot.id)
   }
 
   updateSpot(spot: DetailSpot): Observable<DetailSpot> {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}) 
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
+    const putUrl = `${this.spotsUrl}/${spot.id}`;
 
-    return this.http.put(this.spotsUrl, spot, httpOptions).pipe(
+    return this.http.put(putUrl, spot, httpOptions).pipe(
       tap(() => this.log(`Updated spot id=${spot.id}`)),
+      tap(() => console.log(spot)),
       catchError(this.handleError<any>(`UpdatedSpot`))
     );
   }
+  //Avec les Observables typés, on doit déclarer la méthode CatchError qui renvoie une
+  //objet du type de l'Observable pour ne pas faire buggger l'appli.
 
   deleteSpot (spot: DetailSpot): Observable<DetailSpot> {
     const url = `${this.spotsUrl}/${spot.id}`;
@@ -118,37 +156,30 @@ export class SurfService {
     }
   }
 
-    getMswUrl(id: number): void {
-      console.log(`${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`); // TODO a delete
-    }
-
-    //TODO: Détailler le mapping du résultat de la raqupete JSON à chaque élément de l'objet MagicSeaWeedDetailSpot
-  getSurfSpotInfoMagicSeaWeed(id: number): Observable<MagicSeaWeedDetailSpotTest[]> { // TODO je suis parti sur une classe de test qui ne marche pas, il faudra changer pour la classe normale
-    // const mswApiKey = this.params.getMagicSeaWeedApiKey();
-    const url = `${this.mswUrl}/${this.mswApiKey}/forecast/?spot_id=${id}/${this.mswUrlParameters}`;
-    console.log("méthode getSurfSpotInfoMagicSeaWeed: url = " + url);
-    let mswData = MagicSeaWeedDetailSpotTest;
-    console.log(this.http.get<any>(url));
-    return this.http.get<MagicSeaWeedDetailSpotTest[]>(url).pipe(
-      tap(() => this.log(`fetched msw data id=${id}`)),
-      catchError(() => this.handleError<MagicSeaWeedDetailSpot[]>(`getMswData id= ${id}`, []))
-    );
-  }
-
     	/* log */
 	private log(log: string) {
 		console.info(log);
   }
   
   	/* handleError */
-	private handleError<T>(operation: String , result?: T) { //?: veut dire optionnel, on type le retour si on veut
+	private handleError<T>(operation: String , result?: T) {
 		return (error: any): Observable<T> => {
 			console.error(error);
 			console.log(`${operation} failed: ${error.message}`);
 
-			return of(result as T);//'of' --> transforme les données passées en paramètre en un Observable
+			return of(result as T);
 		};
     } 
+
+  //   /* handleErrorPromise */
+	// private handleErrorPromise<T>(operation: String , result?: T) { //?: veut dire optionnel, on type le retour si on veut
+	// 	return (error: any): Promise<T> => {
+	// 		console.error(error);
+	// 		console.log(`${operation} failed: ${error.message}`);
+
+	// 		return (result);
+	// 	};
+  //   } 
 	
 	  //param 'operation' est le nom de la méthode qui a causé l'erreur, result est une donnée facultative --->
 	  // utile car result?: T permet à l'appli de toujours fonctionner en renvoyant un résultat adapté à la méthode qui

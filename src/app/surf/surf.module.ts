@@ -12,6 +12,8 @@ import { SurfFormComponent } from './surf-form/surf-form.component';
 import { SpotSearchComponent } from './spot-search/spot-search.component';
 import { LoaderComponent } from '../loader/loader.component';
 import { SurfSpotTypeColorPipe } from './Pipes_Directives/spot-type.pipe';
+import { EditSpotComponent } from './edit-spot/edit-spot.component';
+import { CreateSpotComponent } from './create-spot/create-spot.component';
 
 
 
@@ -25,7 +27,9 @@ import { SurfSpotTypeColorPipe } from './Pipes_Directives/spot-type.pipe';
     SurfSpotTypeColorPipe,
     SurfFormComponent,
     SpotSearchComponent,
-    LoaderComponent
+    LoaderComponent,
+    EditSpotComponent,
+    CreateSpotComponent
   ],
   imports: [
     CommonModule,

@@ -14,7 +14,7 @@ export class SpotSearchComponent implements OnInit {
 
   private searchTerms = new Subject<string>();
   spots$: Observable<DetailSpot[]>; //Subject: classe de RXJS, hérite de Observable. Permet de stocker
-  //des données dans un tableau de String sous la forma d'un Observable
+  //des données dans un tableau de String sous la forme d'un Observable
   // avec cette notion de décallage dans le temps (asynchrone). 
   //le '$' c'est une convention pour montrer que c'est un flux
 

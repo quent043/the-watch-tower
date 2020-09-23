@@ -5,6 +5,8 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { DetailSpotComponent } from '../detail-spot/detail-spot.component';
 import { WindMapComponent } from '../wind-map/wind-map.component';
 import { SurfFormComponent } from '../surf-form/surf-form.component';
+import { EditSpotComponent } from '../edit-spot/edit-spot.component';
+import { CreateSpotComponent } from '../create-spot/create-spot.component';
 
 //Routes
 
@@ -15,6 +17,7 @@ const surfRoutes: Routes = [
       
       { path: 'detail-spot/:id', component: DetailSpotComponent},
       { path: 'wind-map', component: WindMapComponent},
+      { path: 'spot-edit/create', component: CreateSpotComponent},
       { path: 'spot-edit/:id', component: SurfFormComponent},
       { path: '', component: DashboardComponent}
     ]
