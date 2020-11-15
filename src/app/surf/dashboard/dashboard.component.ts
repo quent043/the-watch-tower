@@ -4,6 +4,7 @@ import { DetailSpot } from '../detail-spot';
 import { SurfService } from '../surf.service';
 import { MagicSeaWeedDetailSpotTest } from '../magicseaweed-spot-test';
 import { MagicSeaWeedDetailSpot } from '../magicseaweed-spot';
+import { Observer, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,22 +27,35 @@ export class DashboardComponent implements OnInit {
     ) { }                                 //et son instance est unique
 
   ngOnInit() {
-    this.getSpots();
+    this.getSpots2();
     this.isOneSpotSelected = false;
     this.origin = this.surfService.geoLocate(); //TODO Je ne sais pas pk mais si on ne géolocate pas ici, la géolocation ne se fait pas au premier appel dans la page 
     //de détail, il faut refresh
     this.getLiveData();
   }
 
-  getSpots(): void {
-    // this.listeSpots = this.surfService.getSurfSpots();
+  getSpots(): void { 
     this.surfService.getSurfSpots()
-    .subscribe(liste => this.listeSpots = liste);
+    .subscribe(
+      liste => this.listeSpots = liste, //Tout ça c'est un Observer, on aurait pu le sortir dans une variable
+      error => console.log(error));     //Comme la méthode getSpots2 en dessous. Même chose.
+  }
+
+  getSpots2(): void { 
+    this.surfService.getSurfSpots()
+    .subscribe(this.obs) 
+  }
+
+  obs: Observer<DetailSpot[]> = {
+    next: liste => this.listeSpots = liste,
+    error: error => console.log(error),
+    complete: () => console.log("Complete")
   }
 
   getLiveData(): void {
     this.surfService.getSurfSpotInfoMagicSeaWeed(1570)
-    .subscribe(data => this.liveDataTable = data,
+    .subscribe(
+      data => this.liveDataTable = data,
       error => console.log(error));
   }
 

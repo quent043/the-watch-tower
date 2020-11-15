@@ -23,7 +23,7 @@ export class SurfFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.editSpot = true;
+    // this.editSpot = true;
     let id = +this.route.snapshot.params['id'];
     this.surfService.getSurfSpot(id)
       .then(fetchedSpot => this.spot = fetchedSpot);

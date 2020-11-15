@@ -19,6 +19,7 @@ export class SurfService {
   private zoom: Number;
   origin;
   destination;
+  // result : Observable<DetailSpot[]>;
 
   constructor(
     private http: HttpClient,
@@ -34,17 +35,21 @@ export class SurfService {
 
   getSurfSpots(): Observable<DetailSpot[]> {
     const url = `${this.spotsUrl}/getAll`;
-    console.log("méthode getSurfSpots(), résultat de requête get: " + this.http.get<DetailSpot[]>(url))
+    console.log(url);
 
-    this.http.get<DetailSpot[]>(url).toPromise()
-    .then(data => console.log(data));
+    // this.http.get<DetailSpot[]>(url).toPromise()
+    // .then(data => console.log(data));
 
-
-    return this.http.get<DetailSpot[]>(url).pipe(
-      tap(data => this.log(`Observable: fetched spot: ${JSON.stringify(data)}`)),
+     var result : Observable<DetailSpot[]>;
+     result = this.http.get<DetailSpot[]>(url).pipe(
       tap(data => this.log(`Observable: fetched spot: ${JSON.stringify(data)}`)),
       catchError(this.handleError(`get Spots`, []))
     );
+
+    // console.log("méthode getSurfSpots(), résultat de requête get: " + result)
+    // console.log(result.toPromise().then(data => console.log(data)))
+
+    return result
                                                       
   }
 
