@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     ) { }                                 //et son instance est unique
 
   ngOnInit() {
-    this.getSpots();
+    this.getSpots2();
     this.isOneSpotSelected = false;
     this.origin = this.surfService.geoLocate(); //TODO Je ne sais pas pk mais si on ne géolocate pas ici, la géolocation ne se fait pas au premier appel dans la page 
     //de détail, il faut refresh

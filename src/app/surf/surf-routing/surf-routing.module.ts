@@ -18,7 +18,7 @@ const surfRoutes: Routes = [
       { path: 'detail-spot/:id', component: DetailSpotComponent},
       { path: 'wind-map', component: WindMapComponent},
       { path: 'spot-edit/create', component: CreateSpotComponent},
-      { path: 'spot-edit/:id', component: SurfFormComponent},
+      { path: 'spot-edit/:id', component: EditSpotComponent},
       { path: '', component: DashboardComponent}
     ]
   }
